@@ -1,0 +1,36 @@
+using FlightOLEDGuardian.Core;
+using FlightOLEDGuardian.Reporting;
+
+int passed=0, failed=0;
+void Check(string name,Action test) { try { test(); passed++; Console.WriteLine($"PASS {name}"); } catch(Exception e) { failed++; Console.WriteLine($"FAIL {name}: {e.Message}"); } }
+void Eq<T>(T expected,T actual) { if(!Equals(expected,actual)) throw new Exception($"Expected {expected}, got {actual}"); }
+FlightTelemetry Air(double now=0,double altitude=35000) => new() { Connected=true,OnGround=false,AltitudeMSL=altitude,AltitudeAGL=altitude,ReceivedAt=now };
+ProtectionScheduler Engine() => new(new GuardianSettings{AltitudeConfirmationSeconds=0});
+Check("7000 AGL, idle and altitude hysteresis",()=>{var e=Engine(); Eq(ProtectionState.Ineligible,e.Tick(0,60,Air(0,6999))); Eq(ProtectionState.WaitingForIdle,e.Tick(1,59,Air(1,7000)));Eq(ProtectionState.Normal,e.Tick(2,60,Air(2,6900)));Eq(ProtectionState.Ineligible,e.Tick(3,61,Air(3,6799)));});
+Check("Default AGL does not activate over high terrain solely from MSL",()=>{var e=Engine();Eq(AltitudeReference.AGL,new GuardianSettings().Reference);Eq(ProtectionState.Ineligible,e.Tick(0,100,Air() with{AltitudeMSL=15000,AltitudeAGL=6500}));Eq(ProtectionState.Normal,e.Tick(1,101,Air(1) with{AltitudeMSL=15000,AltitudeAGL=7000}));});
+Check("English default asks for language independently of onboarding",()=>{var settings=new GuardianSettings{OnboardingComplete=true};Eq("en",settings.Language);Eq(false,settings.LanguageSelectionCompleted);});
+Check("Streamer masking cannot be disabled by the reveal preference",()=>{Eq(true,IdentityPrivacy.ShouldMask(true,false));Eq(true,IdentityPrivacy.ShouldMask(false,true));Eq(false,IdentityPrivacy.ShouldMask(false,false));});
+Check("Identity redaction covers plain and URL-encoded aliases",()=>{const string identity="pilot & test";var output=IdentityPrivacy.Redact("Alias: "+identity+" URL: "+Uri.EscapeDataString(identity),identity);Eq(false,output.Contains(identity));Eq(false,output.Contains(Uri.EscapeDataString(identity)));});
+Check("9m normal, last 10s countdown, 1m black",()=>{var e=Engine();e.Tick(0,60,Air());Eq(ProtectionState.Normal,e.Tick(529,589,Air(529)));Eq(ProtectionState.Countdown,e.Tick(530,590,Air(530)));Eq(10d,e.RemainingSeconds);Eq(ProtectionState.Black,e.Tick(540,600,Air(540)));Eq(ProtectionState.Black,e.Tick(599,659,Air(599)));Eq(ProtectionState.Normal,e.Tick(600,660,Air(600)));Eq(1,e.CompletedCycles);});
+Check("Input wakes and resets normal cycle",()=>{var e=Engine();e.Tick(0,60,Air());e.Tick(540,600,Air(540));Eq(ProtectionState.WaitingForIdle,e.Tick(541,0,Air(541)));Eq(1,e.WakeEvents);Eq(ProtectionState.Normal,e.Tick(601,60,Air(601)));Eq(540d,e.RemainingSeconds);});
+Check("Skip and snooze",()=>{var e=Engine();e.Tick(0,60,Air());e.Skip(530);Eq(ProtectionState.Normal,e.Tick(531,591,Air(531)));e.Snooze(532);Eq(ProtectionState.Snoozed,e.Tick(1131,1200,Air(1131)));Eq(ProtectionState.Normal,e.Tick(1132,1201,Air(1132)));});
+Check("Disconnect, pause, stale and low altitude fail open",()=>{foreach(var f in new[]{Air(541) with{Connected=false},Air(541) with{Paused=true},Air(500),Air(541,3000),Air(541) with{AltitudeMSL=double.NaN}}){var e=Engine();e.Tick(0,60,Air());e.Tick(540,600,Air(540));e.Tick(541,601,f);if(e.State==ProtectionState.Black)throw new Exception("Black screen remained");}});
+Check("Confirmation must be continuous",()=>{var e=new ProtectionScheduler(new());e.Tick(0,100,Air());e.Tick(2,102,Air(2,6900));Eq(ProtectionState.Ineligible,e.Tick(3,103,Air(3)));Eq(ProtectionState.Normal,e.Tick(6,106,Air(6)));});
+Check("Full and adaptive protection countdown",()=>{foreach(var mode in new[]{ProtectionMode.FullProtection,ProtectionMode.AdaptiveProtection}){var e=new ProtectionScheduler(new(){AltitudeConfirmationSeconds=0,Mode=mode});Eq(ProtectionState.Countdown,e.Tick(0,1800,Air()));Eq(ProtectionState.Black,e.Tick(10,1810,Air(10)));Eq(ProtectionState.Black,e.Tick(999,2799,Air(999)));}});
+Check("VFR maneuvers and AGL",()=>{var e=new ProtectionScheduler(GuardianSettings.Vfr with{AltitudeConfirmationSeconds=0});Eq(ProtectionState.Ineligible,e.Tick(0,120,Air() with{AltitudeAGL=2000}));Eq(ProtectionState.Normal,e.Tick(1,121,Air(1) with{AltitudeAGL=3000}));Eq(ProtectionState.Ineligible,e.Tick(2,122,Air(2) with{BankDegrees=20}));});
+Check("Capture safety suppresses black",()=>{var e=Engine();e.ManualProtect(0);Eq(ProtectionState.Suspended,e.Tick(0,60,Air(),false));});
+Check("TOD alerts once per plan",()=>{var a=new TodAlert();Eq(false,a.Evaluate(new(null,"Unavailable","a","")));Eq(true,a.Evaluate(new(50,"Planned TOD","a","")));Eq(false,a.Evaluate(new(49,"Planned TOD","a","")));Eq(false,a.Evaluate(new(50,"Planned TOD","a","")));Eq(true,a.Evaluate(new(49,"Planned TOD","b","")));});
+Check("TOD uses remaining legs, rejects off route",()=>{GeoPoint[] route=[new(0,0),new(0,1),new(1,1)];var r=TodRadar.AlongRoute(new(0,.5),route,2,"route");if(r.NauticalMiles is not >89 or >91)throw new Exception("Incorrect route distance");Eq(null,TodRadar.AlongRoute(new(30,30),route,2,"route").NauticalMiles);});
+Check("TOD rejects route intersections and invalid coordinates",()=>{GeoPoint[] loop=[new(0,0),new(0,2),new(0,0),new(0,3)];Eq(null,TodRadar.AlongRoute(new(0,1),loop,3,"loop").NauticalMiles);Eq(null,TodRadar.AlongRoute(new(double.NaN,1),loop,3,"loop").NauticalMiles);});
+Check("Invalid settings rejected",()=>{foreach(var s in new[]{new GuardianSettings{NormalSeconds=0},new GuardianSettings{CountdownSeconds=1000},new GuardianSettings{IdleSeconds=double.NaN}}){try{s.Validate();throw new Exception("Accepted invalid settings");}catch(ArgumentException){}}});
+Check("Touchdown report after stable landing; go-around cancels",()=>{var e=Engine();var recorder=new FlightRecorder();FlightReport? report=null;for(int i=0;i<=80;i++){var f=Air(i) with{OnGround=i==0 || i>=40 && i<45 || i>=60,GroundSpeed=i>=60?50:150,VerticalSpeed=-150};e.Tick(i,0,f);var r=recorder.Update(i,DateTimeOffset.UnixEpoch.AddSeconds(i),f,e);if(i<75 && r!=null)throw new Exception("Premature report");report??=r;}if(report==null)throw new Exception("Missing report");Eq(-150d,report.LandingRate);Eq(0d,report.BlackSeconds);});
+Check("Connection mid-flight does not fabricate report",()=>{var r=new FlightRecorder();var e=Engine();for(int i=0;i<60;i++)Eq(null,r.Update(i,DateTimeOffset.UtcNow,Air(i) with{OnGround=i>30},e));});
+Check("Report counts measured black intervals exactly",()=>
+{
+    var engine=new ProtectionScheduler(new(){AltitudeConfirmationSeconds=0,IdleSeconds=0,NormalSeconds=10,BlackSeconds=5,CountdownSeconds=3});var recorder=new FlightRecorder();FlightReport? report=null;
+    for(int i=0;i<=70;i++){var flight=Air(i) with{OnGround=i==0 || i>=50,GroundSpeed=i>=50?40:450};engine.Tick(i,i,flight);report??=recorder.Update(i,DateTimeOffset.UnixEpoch.AddSeconds(i),flight,engine);}
+    if(report==null)throw new Exception("No report");Eq(15d,report.BlackSeconds);Eq(5d,report.LongestBlackSeconds);Eq(3,report.Cycles);Eq(49d,report.FlightSeconds);
+});
+Check("48h accelerated scheduler stays bounded",()=>{var e=Engine();for(int i=0;i<172800;i++){e.Tick(i,i+60,Air(i));if(e.RemainingSeconds<0)throw new Exception("Negative timer");}if(e.CompletedCycles<200)throw new Exception("Cycles stalled");});
+Console.WriteLine($"{passed} passed, {failed} failed");
+return failed==0?0:1;

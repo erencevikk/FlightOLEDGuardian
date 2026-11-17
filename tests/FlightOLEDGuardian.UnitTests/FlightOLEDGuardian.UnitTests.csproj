@@ -1,0 +1,1 @@
+<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup><ProjectReference Include="../../src/FlightOLEDGuardian.Core/FlightOLEDGuardian.Core.csproj" /><ProjectReference Include="../../src/FlightOLEDGuardian.Reporting/FlightOLEDGuardian.Reporting.csproj" /></ItemGroup></Project>
