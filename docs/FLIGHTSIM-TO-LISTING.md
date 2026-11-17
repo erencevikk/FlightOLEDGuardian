@@ -54,6 +54,10 @@ Source, downloads and issues: https://github.com/erencevikk/FlightOLEDGuardian
 
 License: MIT. No paid service or donation is required.
 
+### Optional support / Donations
+
+If you enjoy FlightOLED Guardian and would like to support its development, you can make a voluntary contribution through the support options on my [YouTube channel — Eren Çevik](https://www.youtube.com/@eren_cevik), including channel membership where available. Support is entirely optional; the application and all its features remain free.
+
 ---
 
 ## Türkçe
@@ -99,3 +103,7 @@ Guardian/MSFS sürümlerini, mock/canlı telemetri tercihini, AGL/MSL ayarını,
 Kaynak kodu, indirmeler ve hata bildirimi: https://github.com/erencevikk/FlightOLEDGuardian
 
 Lisans: MIT. Ücretli servis veya bağış gerekmez.
+
+### İsteğe bağlı destek / Bağış
+
+FlightOLED Guardian'ı beğendiyseniz ve geliştirilmesine destek olmak isterseniz [YouTube kanalım — Eren Çevik](https://www.youtube.com/@eren_cevik) üzerinden, sunulan destek seçeneklerini veya kanal üyeliğini kullanarak gönüllü destek/bağış yapabilirsiniz. Destek tamamen isteğe bağlıdır; uygulama ve bütün özellikleri ücretsiz kalır.
