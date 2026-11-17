@@ -1,8 +1,84 @@
 # FlightOLED Guardian v0.3.0
 
-![Guardian](src/FlightOLEDGuardian.App/Assets/Guardian.png)
+![FlightOLED Guardian](src/FlightOLEDGuardian.App/Assets/Guardian.png)
 
-[Download / İndir](https://github.com/erencevikk/FlightOLEDGuardian/releases/latest) · [Source code / Kaynak kodu](https://github.com/erencevikk/FlightOLEDGuardian)
+[English](#english) · [Türkçe](#türkçe) · [Download / İndir](https://github.com/erencevikk/FlightOLEDGuardian/releases/latest)
+
+## English
+
+**Fly longer. Protect your OLED.**
+
+FlightOLED Guardian is a free, open-source Windows companion for Microsoft Flight Simulator. It uses flight altitude and user inactivity to schedule black-screen intervals on your selected OLED display. The application stays in the tray when you choose, with no permanent overlay during normal flight.
+
+**Public preview:** automatic and mock checks have passed; live MSFS flight cycling, actual Windows-account installation/upgrade/uninstallation, and the exact OBS/HDMI capture arrangement still require real-world validation. OLED burn-in prevention is not guaranteed.
+
+### Download and install
+
+Get **FlightOLEDGuardian-v0.3-Setup.exe** from [Releases](https://github.com/erencevikk/FlightOLEDGuardian/releases/latest). Setup installs for the current Windows user, adds a Start menu shortcut and an uninstall entry, and optionally creates a desktop shortcut. Administrator elevation is not required. Close any running Guardian instance using **Exit** in its tray menu before installing or updating.
+
+Requirements: **Windows 10/11 x64** and **.NET 8 Desktop Runtime x64**. If the runtime is missing, Setup opens Microsoft's download page after you click Install. Install the Desktop Runtime and run Setup again.
+
+For a portable installation, download the Complete ZIP and use its `App` folder. Keep the EXE, DLL and JSON files together. `Start-Guardian.cmd` starts the normal app; `Start-Mock.cmd` starts the simulator-free test mode. Source code and the installer are included in the ZIP.
+
+### Protection behavior
+
+- Default activation: **7,000 FT AGL** (height above ground), after 60 seconds of user inactivity.
+- Cycle: **9 minutes normal display**, including a final **10-second countdown**, then **1 minute black**.
+- Altitude confirmation: 3 seconds; hysteresis: 200 FT.
+- Skip once, Snooze, manual protection, suspend/resume and immediate wake controls.
+- Keyboard, mouse or significant supported joystick input wakes the display.
+- Emergency shortcut: **Ctrl+Alt+F12**; fallback: **Ctrl+Shift+F12**. If neither can be registered, protection stays suspended.
+- Pause, disconnect, stale/invalid telemetry and monitor/power changes keep or restore the visible screen.
+- IFR, VFR and custom profiles; periodic, full and adaptive protection modes.
+
+English is the factory default. The first launch asks you to choose **English or Türkçe** independently of the auto-launch question. Change the language later from the header or Settings. AGL is the default altitude reference; MSL remains available as an explicit choice.
+
+### MSFS startup and SimConnect
+
+The first launch asks whether Guardian should start with MSFS. This can also be configured in Settings using the simulator's **EXE.xml / Launch.Addon** mechanism. Other add-ons are preserved and a backup is made before changes. No new Windows startup watcher is installed.
+
+Install Guardian in a stable location before enabling auto-launch. After moving from portable to Setup, save the enabled auto-launch setting to refresh the executable path. **Disable Start with MSFS inside Guardian before uninstalling.** Settings and reports are preserved separately.
+
+The app looks for an installed, official **x64 native SimConnect.dll**, including known SDK and installed-client locations. You can select the official DLL manually in Settings. Wrong-architecture files are rejected. Restart Guardian after selecting a different DLL if a client is already loaded. Microsoft's SDK client binary is not redistributed here. Guardian reads telemetry and system events; it does not write flight controls.
+
+The last native desktop check confirmed DLL loading and the fallback emergency shortcut. No valid live MSFS samples arrived in that test window. DLL loading alone is not a verified live flight connection.
+
+### SimBrief and TOD
+
+Enter a **Navigraph Alias or 1–7 digit SimBrief Pilot ID**, choose the numeric-ID option when appropriate, and click **Fetch SimBrief flight plan**. No SimBrief password is requested. Generate an OFP in SimBrief first. XML import is also available.
+
+The identity is hidden by default, and streaming mode always masks it. This is display privacy: the identity is stored in the local settings file, not encrypted. Plain and URL-encoded identity are redacted from import errors.
+
+SimBrief is queried only when you click Fetch, with a 20-second timeout and a 2 MB response limit. When the OFP contains a TOD fix, Guardian calculates remaining route distance to the **planned TOD**. This is not the aircraft's live FMS/VNAV TOD. Missing TOD, off-route positions or ambiguous legs are not replaced with fabricated distances. Re-fetch after changing your flight plan. A 50 NM visual/spoken alert and optional dim moving telemetry are available.
+
+### Streaming and reports
+
+Unverified capture configurations suspend protection by default in streaming mode. Windows capture-exclusion acceptance does not establish OBS or physical HDMI compatibility. **A cloned HDMI/capture-card signal can include the black overlay.** Record a test in your exact arrangement; use an independent unprotected capture output where necessary.
+
+Reports require an observed takeoff and a confirmed landing: 15 seconds on the ground below 80 KT. Connecting during flight does not fabricate a takeoff. Mock reports are excluded from real totals. PNG export supports 1920×1080, 1080×1920 and 1080×1080. Landing rate is based on sampled telemetry, not an exact contact measurement.
+
+Settings and JSON reports are stored under `%LOCALAPPDATA%/FlightOLEDGuardian`. Use `--data-dir "C:\path"` to isolate test data.
+
+### Updates, testing and feedback
+
+Guardian checks the repository's latest published non-preview-channel GitHub release on each process start, including tray starts. Settings also provides **Check for updates**. Checks have a timeout/size limit; missing releases or network failures are not presented as “up to date.” Updates are not downloaded or installed automatically. The production endpoint was verified to return `v0.3.0`.
+
+Build using the .NET 8 SDK; no third-party NuGet packages are required:
+
+```powershell
+.\build.ps1 -UiTest -Smoke -Publish
+.\package.ps1
+```
+
+Validation: **21 core + 33 integration/WPF tests**, **8 full-app UI checks**, and **4 installer extraction/render checks** passed. The accelerated mock cycle uses 3 seconds idle, 10 seconds normal (last 3 countdown) and 5 seconds black. Mock timings cannot be saved as production defaults. See [acceptance checks](docs/ACCEPTANCE.md), [user review](docs/V0.3-REVIEW.md) and [development checkpoint](PROGRESS.md) for remaining work.
+
+Please report feedback through [GitHub Issues](https://github.com/erencevikk/FlightOLEDGuardian/issues). Include Guardian/MSFS versions, the selected AGL/MSL threshold, the observed behavior and whether the issue occurs in mock or live mode. Describe your display/capture setup when relevant. Remove your SimBrief identity and other personal data from screenshots and logs.
+
+License: [MIT](LICENSE).
+
+---
+
+## Türkçe
 
 Fly longer. Protect your OLED. / Daha uzun uç. OLED ekranını koru.
 
