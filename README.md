@@ -18,6 +18,8 @@ Get **FlightOLEDGuardian-v0.3-Setup.exe** from [Releases](https://github.com/ere
 
 Requirements: **Windows 10/11 x64** and **.NET 8 Desktop Runtime x64**. If the runtime is missing, Setup opens Microsoft's download page after you click Install. Install the Desktop Runtime and run Setup again.
 
+The **Standalone Windows x64** variant bundles .NET **8.0.34**. Extract its entire ZIP and run `FlightOLEDGuardian.App.exe`; no separate .NET download is needed. Keep all files and subfolders together. The bundled CLR path and all 8 UI smoke checks were verified. See [standalone instructions](docs/STANDALONE-README.txt).
+
 For a portable installation, download the Complete ZIP and use its `App` folder. Keep the EXE, DLL and JSON files together. `Start-Guardian.cmd` starts the normal app; `Start-Mock.cmd` starts the simulator-free test mode. Source code and the installer are included in the ZIP.
 
 ### Protection behavior
@@ -79,6 +81,8 @@ License: [MIT](LICENSE).
 ---
 
 ## Türkçe
+
+**Bağımsız Windows x64 sürümü:** .NET **8.0.34** pakete dahildir. ZIP'in tamamını çıkartıp `FlightOLEDGuardian.App.exe` dosyasını çalıştırın; ayrıca .NET indirmeniz gerekmez. Bütün dosya ve alt klasörleri birlikte tutun. Gömülü CLR yolu ve 8 arayüz kontrolü doğrulandı. Küçük Setup paketinin .NET gereksinimi aşağıda ayrıca açıklanır.
 
 Fly longer. Protect your OLED. / Daha uzun uç. OLED ekranını koru.
 

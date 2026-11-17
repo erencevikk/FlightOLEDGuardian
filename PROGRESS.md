@@ -2,6 +2,12 @@
 
 Updated: 17 November 2026.
 
+## Current distribution update
+
+GitHub README, release notes and repository description are English first, Turkish second. A separate self-contained Windows x64 variant now bundles .NET 8.0.34. Official NuGet runtime/host packs were downloaded and verified against NuGet catalog SHA-512 values. Standalone apphost smoke execution loaded `coreclr.dll` from its own publish directory with an unavailable global runtime root and passed all 8 UI checks. `build-standalone.ps1` and `package-standalone.ps1` reproduce this variant; original v0.3.0 assets are preserved.
+
+Flightsim.to form: Other Applications, MSFS2024, version 0.3.0, AI assistance disclosed, comments enabled. English/Turkish description, 69 MB standalone ZIP and 3 actual labelled mock/test UI screenshots are staged. Submission is NOT published: a valid VirusTotal scan is required, and scanning/submission requires action-time acceptance of VirusTotal and Flightsim.to terms. No VirusTotal sample was submitted yet. Preserve the live form tab and finish only after the user confirms those actions.
+
 Repository: https://github.com/erencevikk/FlightOLEDGuardian
 
 Published build: https://github.com/erencevikk/FlightOLEDGuardian/releases/tag/v0.3.0
