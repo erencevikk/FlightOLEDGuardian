@@ -14,7 +14,7 @@ Windows 10/11 x64 için WPF uygulaması. Bu sürüm .NET 8 SDK ile derlenir; ça
 
 Varsayılan dil English; ilk açılışta ayrıca dil seçimi sorulur. Varsayılan referans AGL'dir. SimBrief kimliği varsayılan gizli, yayın modunda zorunlu gizlidir. Kimlik yerel ayar dosyasında saklanır; gizleme bir ekran gizliliği özelliğidir.
 
-Her başlangıçta arka planda güncelleme kontrol edilir; Ayarlar'dan elle de çalıştırılabilir. GitHub deposu/sürümü henüz oluşturulmadığından canlı güncelleme dağıtımı hazır değildir; uygulama bu durumu açıkça bildirir. Güncelleme indirme veya kurma otomatik yapılmaz.
+Her başlangıçta arka planda güncelleme kontrol edilir; Ayarlar'dan elle de çalıştırılabilir. Sürümler `erencevikk/FlightOLEDGuardian` deposundaki GitHub Releases üzerinden dağıtılır. v0.3.0 yayımlandı ve uygulamanın kullandığı latest-release uç noktası doğrulandı. Güncelleme indirme veya kurma otomatik yapılmaz.
 
 Yeni uçak/kalkan logosu EXE, pencere, tepsi ve kurulumda kullanılır. Standart küçültme görev çubuğunda kalır; özel tepsi düğmesi tepsiye saklar. Ayrıntılı test sonucu ve eksikler: `docs/V0.3-REVIEW.md`.
 
