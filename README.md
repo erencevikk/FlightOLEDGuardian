@@ -76,6 +76,10 @@ Validation: **21 core + 33 integration/WPF tests**, **8 full-app UI checks**, an
 
 Please report feedback through [GitHub Issues](https://github.com/erencevikk/FlightOLEDGuardian/issues). Include Guardian/MSFS versions, the selected AGL/MSL threshold, the observed behavior and whether the issue occurs in mock or live mode. Describe your display/capture setup when relevant. Remove your SimBrief identity and other personal data from screenshots and logs.
 
+### Optional support
+
+If you enjoy FlightOLED Guardian and would like to support its development, you can make a voluntary contribution through the support options on my [YouTube channel — Eren Çevik](https://www.youtube.com/@eren_cevik), including channel membership where available. Support is entirely optional; the application and all its features remain free.
+
 License: [MIT](LICENSE).
 
 ---
@@ -171,3 +175,8 @@ dotnet tests/FlightOLEDGuardian.IntegrationTests/bin/ReleaseVerified/FlightOLEDG
 ```
 
 Bu komut koruma başlatmaz, MSFS'yi değiştirmez ve 20 saniye içinde sonuç verir. Gerçek ortam kabul listesi: [docs/ACCEPTANCE.md](docs/ACCEPTANCE.md).
+
+
+### İsteğe bağlı destek
+
+FlightOLED Guardian'ı beğendiyseniz ve geliştirilmesine destek olmak isterseniz [YouTube kanalım — Eren Çevik](https://www.youtube.com/@eren_cevik) üzerinden, sunulan destek seçeneklerini veya kanal üyeliğini kullanarak gönüllü destek/bağış yapabilirsiniz. Destek tamamen isteğe bağlıdır; uygulama ve bütün özellikleri ücretsiz kalır.
