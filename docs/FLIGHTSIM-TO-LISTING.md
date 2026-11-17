@@ -1,6 +1,6 @@
 # FlightOLED Guardian — Flightsim.to submission copy
 
-Status: prepared for submission; not published. Waiting for the user's Flightsim.to sign-in. English first, Turkish second.
+Status: prepared for submission; not published. The user signed in and the upload form is being prepared. VirusTotal scan and final submission acceptance remain pending. English first, Turkish second.
 
 Suggested title: **FlightOLED Guardian — OLED Display Protection & SimBrief TOD (Public Preview)**
 
@@ -8,7 +8,7 @@ Version: **0.3.0**
 
 Suggested category: standalone utilities / display or hardware utilities, depending on the categories offered by the upload form.
 
-Package: `FlightOLEDGuardian-v0.3-FlightsimTo.zip`
+Package: `FlightOLEDGuardian-v0.3-Standalone-win-x64.zip` (standalone .NET 8.0.34 variant; no separate runtime download). Earlier Setup instructions below describe the original small package; use `STANDALONE-README.txt` and the actual upload-form copy for the standalone variant.
 
 ## English
 
