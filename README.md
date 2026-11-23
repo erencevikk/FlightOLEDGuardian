@@ -1,18 +1,20 @@
-# FlightOLED Guardian v0.5.2
+# FlightOLED Guardian v0.5.4
 
 ![FlightOLED Guardian](src/FlightOLEDGuardian.App/Assets/Guardian.png)
 
-[English](#english) · [Türkçe](#türkçe) · [Download / İndir](https://github.com/erencevikk/FlightOLEDGuardian/releases/tag/v0.5.2) · [Flightsim.to](https://flightsim.to/addon/119434/flightoled-guardian-oled-display-protection-simbrief-tod-preview)
+[English](#english) · [Türkçe](#türkçe) · [Download / İndir](https://github.com/erencevikk/FlightOLEDGuardian/releases/tag/v0.5.4) · [Flightsim.to](https://flightsim.to/addon/119434/flightoled-guardian-oled-display-protection-simbrief-tod-preview)
 
 ## English
 
 FlightOLED Guardian is a free, open-source Windows utility for managing how long static cockpit imagery stays on an OLED display during Microsoft Flight Simulator 2020/2024 or X-Plane 12 flights.
 
-### Download and install
+### Download and install v0.5.4
 
-- **Standalone Windows x64.** Extract `FlightOLEDGuardian-v0.5.2-Standalone-win-x64.zip` and run `FlightOLEDGuardian.App.exe`. Keep the extracted files together. .NET and x64 SimConnect are bundled.
-- **Windows setup.** Run `FlightOLEDGuardian-v0.5.2-Setup.exe` for a per-user installation. This option requires .NET 8 Desktop Runtime x64. Close an existing Guardian instance from the tray before updating.
-- **Source and checksums.** The exact source for the packaged build is in `FlightOLEDGuardian-v0.5.2-Source.zip`. Verify downloads with `SHA256SUMS-v0.5.2.txt`. [Release assets](https://github.com/erencevikk/FlightOLEDGuardian/releases/tag/v0.5.2#assets)
+**v0.5.4 patch.** Keyboard and mouse monitoring pauses when the simulator is closed and Guardian is idle. Manual screen protection still wakes on keyboard or mouse activity.
+
+- **Standalone Windows x64.** Extract [FlightOLEDGuardian-v0.5.4-Standalone-win-x64.zip](https://github.com/erencevikk/FlightOLEDGuardian/releases/download/v0.5.4/FlightOLEDGuardian-v0.5.4-Standalone-win-x64.zip) and run `FlightOLEDGuardian.App.exe`. Keep the extracted files together. .NET and x64 SimConnect are bundled.
+- **Windows setup.** Run [FlightOLEDGuardian-v0.5.4-Setup.exe](https://github.com/erencevikk/FlightOLEDGuardian/releases/download/v0.5.4/FlightOLEDGuardian-v0.5.4-Setup.exe) for a per-user installation. This option requires .NET 8 Desktop Runtime x64. Close an existing Guardian instance from the tray before updating.
+- **Source and checksums.** The exact source for the packaged build is in [FlightOLEDGuardian-v0.5.4-Source.zip](https://github.com/erencevikk/FlightOLEDGuardian/releases/download/v0.5.4/FlightOLEDGuardian-v0.5.4-Source.zip). Verify downloads with [FlightOLEDGuardian-v0.5.4-SHA256SUMS.txt](https://github.com/erencevikk/FlightOLEDGuardian/releases/download/v0.5.4/FlightOLEDGuardian-v0.5.4-SHA256SUMS.txt). [Release assets](https://github.com/erencevikk/FlightOLEDGuardian/releases/tag/v0.5.4#assets)
 
 ### Features
 
@@ -26,7 +28,7 @@ FlightOLED Guardian is a free, open-source Windows utility for managing how long
 
 Guardian checks GitHub at startup. You can also use **Check for updates** in Settings. Download and install updates from the release page.
 
-64 automated tests, standalone startup and UI checks, and installer checks passed. Live simulator and physical OBS/HDMI capture still require validation on your setup. Check your own capture arrangement before streaming. Share your Guardian and simulator versions, display setup, and reproduction steps via [GitHub Issues](https://github.com/erencevikk/FlightOLEDGuardian/issues).
+Automated UI and installer checks passed for v0.5.4. Live simulator and physical OBS/HDMI capture still require validation on your setup. Check your own capture arrangement before streaming. Share your Guardian and simulator versions, display setup, and reproduction steps via [GitHub Issues](https://github.com/erencevikk/FlightOLEDGuardian/issues).
 
 Optional support is available through my [YouTube channel — Eren Çevik](https://www.youtube.com/@eren_cevik). The utility is free.
 
@@ -34,11 +36,13 @@ Optional support is available through my [YouTube channel — Eren Çevik](https
 
 FlightOLED Guardian, Microsoft Flight Simulator 2020/2024 veya X-Plane 12 uçuşlarında sabit kokpit görüntüsünün OLED ekranda kalma süresini yönetmeye yardımcı olan ücretsiz, açık kaynaklı bir Windows uygulamasıdır.
 
-### İndirme ve kurulum
+### İndirme ve kurulum v0.5.4
 
-- **Bağımsız Windows x64.** `FlightOLEDGuardian-v0.5.2-Standalone-win-x64.zip` dosyasını çıkartın ve `FlightOLEDGuardian.App.exe` dosyasını çalıştırın. Çıkartılan dosyaları birlikte tutun. .NET ve x64 SimConnect pakete dahildir.
-- **Windows kurulumu.** Kullanıcı hesabınıza kurmak için `FlightOLEDGuardian-v0.5.2-Setup.exe` dosyasını çalıştırın. Bu seçenek .NET 8 Desktop Runtime x64 gerektirir. Güncellemeden önce çalışan Guardian örneğini tepsi menüsünden kapatın.
-- **Kaynak kod ve sağlama değerleri.** Yayımlanan derlemenin kaynakları `FlightOLEDGuardian-v0.5.2-Source.zip` dosyasındadır. İndirmeleri `SHA256SUMS-v0.5.2.txt` ile doğrulayabilirsiniz. [Sürüm dosyaları](https://github.com/erencevikk/FlightOLEDGuardian/releases/tag/v0.5.2#assets)
+**v0.5.4 yaması.** Simülatör kapalıyken Guardian masaüstünde beklediği sürece klavye ve fare izleme durur. Elle başlatılan ekran koruması klavye veya fare girişiyle sona erer.
+
+- **Bağımsız Windows x64.** [FlightOLEDGuardian-v0.5.4-Standalone-win-x64.zip](https://github.com/erencevikk/FlightOLEDGuardian/releases/download/v0.5.4/FlightOLEDGuardian-v0.5.4-Standalone-win-x64.zip) dosyasını çıkartın ve `FlightOLEDGuardian.App.exe` dosyasını çalıştırın. Çıkartılan dosyaları birlikte tutun. .NET ve x64 SimConnect pakete dahildir.
+- **Windows kurulumu.** Kullanıcı hesabınıza kurmak için [FlightOLEDGuardian-v0.5.4-Setup.exe](https://github.com/erencevikk/FlightOLEDGuardian/releases/download/v0.5.4/FlightOLEDGuardian-v0.5.4-Setup.exe) dosyasını çalıştırın. Bu seçenek .NET 8 Desktop Runtime x64 gerektirir. Güncellemeden önce çalışan Guardian örneğini tepsi menüsünden kapatın.
+- **Kaynak kod ve sağlama değerleri.** Yayımlanan derlemenin kaynakları [FlightOLEDGuardian-v0.5.4-Source.zip](https://github.com/erencevikk/FlightOLEDGuardian/releases/download/v0.5.4/FlightOLEDGuardian-v0.5.4-Source.zip) dosyasındadır. İndirmeleri [FlightOLEDGuardian-v0.5.4-SHA256SUMS.txt](https://github.com/erencevikk/FlightOLEDGuardian/releases/download/v0.5.4/FlightOLEDGuardian-v0.5.4-SHA256SUMS.txt) ile doğrulayabilirsiniz. [Sürüm dosyaları](https://github.com/erencevikk/FlightOLEDGuardian/releases/tag/v0.5.4#assets)
 
 ### Özellikler
 
@@ -52,7 +56,7 @@ FlightOLED Guardian, Microsoft Flight Simulator 2020/2024 veya X-Plane 12 uçuş
 
 Guardian açılışta GitHub üzerinden güncellemeleri kontrol eder. Ayarlar bölümündeki **Güncellemeleri kontrol et** düğmesini de kullanabilirsiniz. Yeni sürümü yayın sayfasından indirip kurabilirsiniz.
 
-64 otomatik test, bağımsız sürümün açılış ve arayüz kontrolleri ile kurulum kontrolleri geçti. Canlı simülatör ve fiziksel OBS/HDMI yakalama kendi kurulumunuzda doğrulanmalıdır. Yayında kullanmadan önce kısa bir deneme kaydı alın. Bir sorun yaşarsanız Guardian ve simülatör sürümünü, ekran düzenini ve sorunu yeniden oluşturma adımlarını [GitHub Issues](https://github.com/erencevikk/FlightOLEDGuardian/issues) üzerinden paylaşabilirsiniz.
+v0.5.4, otomatik arayüz ve kurulum kontrollerinden geçti. Canlı simülatör ve fiziksel OBS/HDMI yakalama kendi kurulumunuzda doğrulanmalıdır. Yayında kullanmadan önce kısa bir deneme kaydı alın. Bir sorun yaşarsanız Guardian ve simülatör sürümünü, ekran düzenini ve sorunu yeniden oluşturma adımlarını [GitHub Issues](https://github.com/erencevikk/FlightOLEDGuardian/issues) üzerinden paylaşabilirsiniz.
 
 Uygulama ücretsizdir. Dilerseniz [YouTube kanalım — Eren Çevik](https://www.youtube.com/@eren_cevik) üzerinden gönüllü destek verebilirsiniz.
 
